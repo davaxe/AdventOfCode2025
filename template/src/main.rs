@@ -5,11 +5,11 @@ fn main() {
     println!(
         "Part 1:\n  {}",
         part1::task(include_str!("../input.txt"))
-            .unwrap_or("No solution found".to_string())
+            .unwrap_or_else(|| "No solution found".to_string())
     );
     println!(
         "Part 2:\n  {}",
         part2::task(include_str!("../input.txt"))
-            .unwrap_or("No solution found".to_string())
+            .unwrap_or_else(|| "No solution found".to_string())
     );
 }

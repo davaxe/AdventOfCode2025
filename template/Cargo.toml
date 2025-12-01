@@ -1,0 +1,19 @@
+[package]
+name = "{{project-name}}"
+version.workspace = true
+edition.workspace = true
+readme.workspace = true
+authors.workspace = true
+
+
+[dependencies]
+itertools.workspace = true
+nom.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+
+[[bench]]
+name = "{{project-name}}-bench"
+path = "benches/benchmarks.rs"
+harness = false

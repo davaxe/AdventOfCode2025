@@ -1,0 +1,19 @@
+[package]
+name = "day-02"
+version.workspace = true
+edition.workspace = true
+readme.workspace = true
+authors.workspace = true
+
+
+[dependencies]
+itertools.workspace = true
+nom.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+
+[[bench]]
+name = "day-02-bench"
+path = "benches/benchmarks.rs"
+harness = false

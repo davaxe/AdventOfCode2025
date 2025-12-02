@@ -1,5 +1,5 @@
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
-use day_01::{part1, part2}; // FIXME: Change day_01 to the correct day
+use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};
+use day_02::{part1, part2};
 
 fn part1_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("part1");

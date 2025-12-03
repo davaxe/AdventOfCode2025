@@ -30,6 +30,9 @@ fn max_jolts(bank: &[u64], n: u32) -> Option<u64> {
             return Some(joltage);
         }
         for (pos, next) in bank.iter().enumerate().skip(pos) {
+            if bank.len() - pos < remaining_digits as usize {
+                break;
+            }
             let next_state = (joltage * 10 + next, Reverse(pos + 1), remaining_digits - 1);
             queue.push(next_state);
         }

@@ -1,5 +1,11 @@
 [workspace]
-members = ["day-*", "day-01", "day-02", "day-03"]
+members = [
+    "day-*",
+    "day-01",
+    "day-02",
+    "day-03",
+    "day-05",
+]
 default-members = ["day-*"]
 resolver = "3"
 
@@ -9,7 +15,7 @@ authors = ["David Axelsson <davidaxelsson5@gmail.com>"]
 edition = "2024"
 
 [workspace.dependencies]
+chumsky = "0.11.2"
 criterion = "0.8.0"
 itertools = "0.14.0"
 rayon = "1.10.0"
-chumsky = "0.11.2"

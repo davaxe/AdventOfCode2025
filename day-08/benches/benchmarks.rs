@@ -6,7 +6,7 @@ fn part1_benchmark(c: &mut Criterion) {
 
     let input = include_str!("../input.txt");
     group.bench_with_input(BenchmarkId::new("part1", "input"), &input, |b, input| {
-        b.iter(|| part1::task(input));
+        b.iter(|| part1::task(input, 1000));
     });
 }
 

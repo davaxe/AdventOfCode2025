@@ -4,7 +4,7 @@ fn main() {
     // Output results for both parts
     println!(
         "Part 1:\n  {}",
-        part1::task(include_str!("../input.txt"))
+        part1::task(include_str!("../input.txt"), 1000)
             .unwrap_or_else(|| "No solution found".to_string())
     );
     println!(

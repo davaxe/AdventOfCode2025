@@ -1,6 +1,20 @@
+use itertools::Itertools;
 #[must_use]
-pub fn task(_input: &str) -> Option<String> {
-    None
+pub fn task(input: &str) -> Option<String> {
+    let res: u64 = input
+        .lines()
+        .filter_map(|line| {
+            let (x, y) = line.split_once(',')?;
+            Some((x.parse::<u64>().ok()?, y.parse::<u64>().ok()?))
+        })
+        .combinations(2)
+        .map(|a| match a.as_slice() {
+            [(x1, y1), (x2, y2)] => x1.abs_diff(*x2 - 1) * (y1.abs_diff(*y2 - 1)),
+            _ => 0,
+        })
+        .max()?;
+
+    Some(res.to_string())
 }
 
 #[cfg(test)]

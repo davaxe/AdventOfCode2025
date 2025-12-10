@@ -1,4 +1,4 @@
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};
 use day_10::{part1, part2};
 
 fn part1_benchmark(c: &mut Criterion) {

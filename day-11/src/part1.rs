@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, hash::BuildHasher};
 
 #[derive(Debug)]
 pub struct Device<'a> {
@@ -30,32 +30,46 @@ pub fn task(input: &str) -> Option<String> {
         })
         .collect();
 
-    // "out" does not appear as a device in the input, so we add it manually
     devices.insert("out", Device::new("out", Vec::new()));
-    let idx_map: HashMap<&str, usize> = devices
-        .keys()
-        .enumerate()
-        .map(|(idx, &name)| (name, idx))
-        .collect();
+    Some(paths_between_devices(&devices, "you", "out").to_string())
+}
 
-    let mut queue = vec![("you", vec![false; devices.len()])];
-    let mut paths = 0;
-    while let Some((current, mut visited)) = queue.pop() {
-        if current == "out" {
-            paths += 1;
-            continue;
-        }
-        visited[idx_map[current]] = true;
+pub fn paths_between_devices<S: BuildHasher>(
+    devices: &HashMap<&str, Device<'_>, S>,
+    start: &str,
+    end: &str,
+) -> usize {
+    let mut memo = HashMap::new();
+    count_paths(start, end, devices, &mut memo)
+}
 
-        if let Some(device) = devices.get(current) {
-            for &conn in &device.connections {
-                if !visited[idx_map[conn]] {
-                    queue.push((conn, visited.clone()));
-                }
-            }
+fn count_paths<'a, S: BuildHasher>(
+    current: &'a str,
+    target: &'a str,
+    devices: &HashMap<&str, Device<'a>, S>,
+    memo: &mut HashMap<&'a str, usize>,
+) -> usize {
+    // Base case: If we reached the target, we found 1 valid path
+    if current == target {
+        return 1;
+    }
+
+    // Check cache: If we already computed paths from this node, return it
+    if let Some(&count) = memo.get(current) {
+        return count;
+    }
+
+    let mut total_paths = 0;
+
+    // Traverse neighbors
+    if let Some(device) = devices.get(current) {
+        for connection in &device.connections {
+            total_paths += count_paths(connection, target, devices, memo);
         }
     }
-    Some(paths.to_string())
+
+    memo.insert(current, total_paths);
+    total_paths
 }
 
 #[cfg(test)]
